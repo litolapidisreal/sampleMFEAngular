@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-import { applyPolyfills, defineCustomElements } from 'my-stencil-app/loader';
+import { applyPolyfills, defineCustomElements } from 'sample-mfe-stencil/loader';
 
 if (environment.production) {
   enableProdMode();
