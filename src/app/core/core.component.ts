@@ -24,8 +24,9 @@ export class CoreComponent implements OnInit {
     .subscribe((data: any) => {
       if (!data) return false;
 
+      sessionStorage.setItem("jwt", data.jwt);
       this.service.setJwt(data.jwt);
-      this.router.navigate(['users']);
+      this.router.navigate(['forms']);
     });
   }
 

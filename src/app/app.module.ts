@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 // import 'lit-project';
 import { CoreComponent } from './core/core.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsersComponent } from './users/users.component';
+import { FormsComponent } from './forms/forms.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     CoreComponent,
-    UsersComponent
+    FormsComponent
   ],
   imports: [
     BrowserModule,
