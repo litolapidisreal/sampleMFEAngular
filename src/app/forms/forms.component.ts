@@ -17,11 +17,13 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(sessionStorage.getItem("jwt"));
-
+    // console.log(sessionStorage.getItem("jwt"));
     // this.service.castJWT.subscribe((val: any) => {
     //   this.token = val;
     // });
+
+    // validate token
+    this.validate();
   }
 
   // getUsers() {
