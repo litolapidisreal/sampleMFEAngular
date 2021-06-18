@@ -57,4 +57,12 @@ export class DataService {
 
     return this.http.get<any>(`${this.API_URL}/users`, {headers: header})
   }
+
+  validateToken(token: string) {
+    let header = new HttpHeaders({
+      "Authorization" : `Bearer ${token}`
+    })
+
+    return this.http.get<any>(`${this.API_URL}/validate`, {headers: header})
+  }
 }

@@ -17,6 +17,7 @@ export class CoreComponent implements OnInit {
     private service: DataService) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
   clickMe() {
