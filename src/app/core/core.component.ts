@@ -21,14 +21,16 @@ export class CoreComponent implements OnInit {
   }
 
   clickMe() {
-    this.service.login(this.user, this.password)
-    .subscribe((data: any) => {
-      if (!data) return false;
+    this.router.navigate(['forms']);
 
-      sessionStorage.setItem("jwt", data.jwt);
-      this.service.setJwt(data.jwt);
-      this.router.navigate(['forms']);
-    });
+    // this.service.requestToken(this.user, this.password)
+    // .subscribe((data: any) => {
+    //   if (!data) return false;
+
+    //   sessionStorage.setItem("jwt", data.jwt);
+    //   this.service.setJwt(data.jwt);
+    //   this.router.navigate(['forms']);
+    // });
   }
 
 }

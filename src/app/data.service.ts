@@ -41,7 +41,7 @@ export class DataService {
     return of(this.data);
   }
 
-  login(user: string, pwd: string) {
+  requestToken(user: string, pwd: string) {
     const body = {
       username: user,
       password: pwd

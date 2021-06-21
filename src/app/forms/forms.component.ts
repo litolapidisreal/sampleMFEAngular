@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forms',
@@ -23,7 +24,7 @@ export class FormsComponent implements OnInit {
     // });
 
     // validate token
-    this.validate();
+    // this.validate();
   }
 
   // getUsers() {
@@ -31,15 +32,25 @@ export class FormsComponent implements OnInit {
   //   .subscribe(val => console.log(val));
   // }
 
+  getMFEToken() {
+    this.service.requestToken('username', 'password')
+    .pipe(take(1))
+    .subscribe((data: any) => {
+      if (!data) return false;
 
-  validate() {
-    const jwt = sessionStorage.getItem("jwt")
-    this.service.validateToken(jwt)
+      this.validate(data.jwt);
+
+    })
+  }
+
+  validate(token: any) {
+    this.service.validateToken(token)
+    .pipe(take(1))
     .subscribe(
       data => {
         if (data.status === "200") {
-          this.token = jwt;
-          console.log("success");
+          this.token = token;
+          // console.log("success", this.token);
         }
       },
       err => {
@@ -48,3 +59,4 @@ export class FormsComponent implements OnInit {
   }
 
 }
+
