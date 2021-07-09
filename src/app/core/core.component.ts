@@ -10,8 +10,8 @@ import { DataService } from '../data.service';
 export class CoreComponent implements OnInit {
 
   jwt: any = null;
-  user: string;
-  password: string;
+  user: string = 'username';
+  password: string = 'password';
 
   constructor(private router: Router,
     private service: DataService) { }

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row align-items-center mt-5">
+  <!-- <div class="row align-items-center mt-5">
     <div class="col">
       <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary" (click)="getMFEToken(); switchValue = 1">Change Address</button>
@@ -8,7 +8,20 @@
         <button type="button" class="btn btn-secondary" (click)="getMFEToken(); switchValue = 4">Redeem fund</button>
       </div>
     </div>
-  </div>
+  </div> -->
+
+    <funds-button 
+      switch="switch-icon.png" 
+      add="add-icon.png" 
+      redeem="redeem-icon.png" 
+      (ok)="getEmittedData($event)" 
+      (token)="getTokenEmit($event)">
+    </funds-button>
+    <switch-form 
+      show="{{showSwitch}}" 
+      jwt="{{token}}" 
+      (ok)="getEmittedData($event)">
+    </switch-form>
 </div>
 
 <div [ngSwitch]="switchValue">
@@ -25,4 +38,7 @@
     <redeem-form jwt="{{token}}"></redeem-form>
   </div>
 </div>
+
+
+
 

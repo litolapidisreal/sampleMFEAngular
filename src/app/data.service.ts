@@ -2,6 +2,10 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export interface Users {
+  name: string;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +41,14 @@ export class DataService {
     this.jwt$.next(value);
   }
 
+  storeSession(token: string) {
+    sessionStorage.setItem("jwt", token)
+  }
+
+  getSessionToken() {
+    return sessionStorage.getItem("jwt");
+  }
+
   getData() {
     return of(this.data);
   }
@@ -47,15 +59,15 @@ export class DataService {
       password: pwd
     }
 
-    return this.http.post<any>(`${this.API_URL}/authenticate`, body)
+    return this.http.post<any>(`${this.API_URL}/token`, body)
   }
 
-  getUsers(jwt: any): Observable<any> {
+  getUsers(jwt: any): Observable<Users[]> {
     let header = new HttpHeaders({
         "Authorization": `Bearer ${jwt}`
       });
 
-    return this.http.get<any>(`${this.API_URL}/users`, {headers: header})
+    return this.http.get<Users[]>(`${this.API_URL}/users`, {headers: header})
   }
 
   validateToken(token: string) {

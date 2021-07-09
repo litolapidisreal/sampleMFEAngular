@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
-import { take } from 'rxjs/operators';
+import { DataService, Users } from '../data.service';
+import { take, finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-forms',
@@ -12,6 +13,10 @@ export class FormsComponent implements OnInit {
   token: string = "";
   isValid: boolean = false;
   switchValue: number = 0;
+  users$: Observable<Users[]>;
+
+  showSwitch: boolean;
+  showFundButton: boolean = true;
 
   constructor(private service: DataService) {
 
@@ -28,19 +33,32 @@ export class FormsComponent implements OnInit {
   }
 
   // getUsers() {
-  //   this.service.getUsers("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjIzNzc2MzM1LCJpYXQiOjE2MjM3NDAzMzV9._SVGxDAGOf3REaYyj7mY1uRWDTTj_qdrpxFddNTZcTo")
-  //   .subscribe(val => console.log(val));
+  //   this.service.getUsers("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjI0MjYyMTEzLCJpYXQiOjE2MjQyNjE4MTN9.3NplvbKB01uMhkwfJXXbi13IouBwKgCqaAbwBNWz-Gk")
+  //   .subscribe(val => { return val; });
   // }
+
+
+  getEmittedData(e: any) {
+    console.log("proceed: ", e.detail);
+    this.showSwitch = e.detail;
+  }
+
+  getTokenEmit(e: any) {
+    this.token = e.detail;
+    // this.showFundButton = e.detail;
+  }
 
   getMFEToken() {
     this.service.requestToken('username', 'password')
-    .pipe(take(1))
-    .subscribe((data: any) => {
-      if (!data) return false;
+      .pipe(take(1))
+      .subscribe((data: any) => {
+        if (!data) {
+          return false;
+        }
 
-      this.validate(data.jwt);
+        this.validate(data.jwt);
 
-    })
+      })
   }
 
   validate(token: any) {
@@ -50,7 +68,7 @@ export class FormsComponent implements OnInit {
       data => {
         if (data.status === "200") {
           this.token = token;
-          // console.log("success", this.token);
+          console.log("success", this.token);
         }
       },
       err => {
